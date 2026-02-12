@@ -1,0 +1,480 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "HOSPO TALENT (IC template) premium marketing site + jobs + II auth + role dashboards (frontend)",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Establish strict brand tokens via CSS variables and enforce restrained purple usage with accessible focus styles.",
+      "acceptanceCriteria": [
+        "CSS variables exist for all specified tokens and are the only source of truth for colors.",
+        "Primary purple appears only in (a) a single emphasized word in major headings, (b) primary CTA, (c) active nav state; other UI uses neutrals.",
+        "All interactive elements have accessible focus-visible styling and AA contrast."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Define the full brand-token system as CSS variables (primary purple, lavenders, and neutrals ink-900/ink-600/surface-0/surface-50/border-100), plus global focus-visible styles and AA-contrast defaults; ensure Tailwind utilities and custom classes reference only these variables."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Align Tailwind theme color mapping to the new CSS variables (neutrals + accent tokens) and add any needed semantic tokens/utilities to keep purple restricted to emphasis/CTA/active nav only."
+        },
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Ensure base metadata and language attributes align with the brand, and that any default theme/background matches the new neutral surface tokens."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Create a reusable component system (composed from existing UI components) covering navbar, CTAs, cards, timeline/tabs, testimonials, FAQ, forms, empty states, and skeletons.",
+      "acceptanceCriteria": [
+        "Each listed component exists as a reusable React component with props documented via TypeScript types.",
+        "Components meet responsiveness rules (max width 1200–1280px, section padding 80–120px desktop / 48–72px mobile, card radius 16–24px, soft premium shadow).",
+        "Forms show validation messages and disabled/loading states; skeletons are used while fetching protected data."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/layout/StickyNavbar.tsx",
+          "operation": "create",
+          "description": "Implement a sticky dark navbar (logo left, menu center, “Get Started” pill right) with active link styling limited to the brand’s purple emphasis rules; compose from existing UI primitives where appropriate. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ui-kit/PrimaryPillButton.tsx",
+          "operation": "create",
+          "description": "Create a primary pill CTA button component (lavender fill, hover glow, focus-visible ring, disabled/loading states) using brand tokens and Tailwind. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ui-kit/GlassCard.tsx",
+          "operation": "create",
+          "description": "Create a reusable glass hero card component with backdrop blur and subtle 1px white-opacity border, premium shadow, and responsive spacing. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ui-kit/FeatureCard.tsx",
+          "operation": "create",
+          "description": "Create feature cards with minimal icon support (icon slot), neutral-forward styling, and consistent radius/shadow rules. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ui-kit/ProcessTimeline.tsx",
+          "operation": "create",
+          "description": "Create a process timeline component with Phase 1/2/3 tabs and step cards; implement keyboard-accessible tabs and focus styles by composing existing UI components (e.g., from shadcn-ui) without modifying immutable paths. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ui-kit/TestimonialsGrid.tsx",
+          "operation": "create",
+          "description": "Create a testimonials 3-card grid component with star rating display and responsive layout. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ui-kit/FaqAccordion.tsx",
+          "operation": "create",
+          "description": "Create an FAQ accordion component with accessible keyboard interaction; compose from existing UI components (e.g., shadcn-ui accordion) without editing immutable UI paths. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/forms/FormField.tsx",
+          "operation": "create",
+          "description": "Create standardized input/textarea/select field wrappers with label, hint, validation message, error state styling, and focus-visible behavior. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/states/EmptyState.tsx",
+          "operation": "create",
+          "description": "Create standardized empty state component(s) for lists/pages (jobs, applications, dashboards) with neutral styling and optional action button. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/states/LoadingSkeleton.tsx",
+          "operation": "create",
+          "description": "Create standardized skeleton components for cards, lists, and detail views; ensure they are used across React Query loading states. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Apply a cohesive premium visual theme (typography, spacing rhythm, cards, shadows) across all routes using the brand tokens.",
+      "acceptanceCriteria": [
+        "Global typography and layout styles are applied consistently across routes.",
+        "Major sections follow the specified padding and max-width constraints.",
+        "No default/unstyled UI remains (buttons, links, headings, lists, forms)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/layout/AppLayout.tsx",
+          "operation": "create",
+          "description": "Create a shared layout wrapper that enforces max-width (1200–1280px), section paddings, neutral surfaces, and consistent header/footer spacing across marketing, jobs, and dashboard routes. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add global typography styles (modern sans for headings, Inter/equivalent for body), weights (heading 700–900, body 400–500), spacing rhythm, card radius (16–24px), and premium shadows—all driven by the brand CSS variables."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Implement public marketing routes with client-side routing and per-route SEO metadata (title, meta description, OG tags).",
+      "acceptanceCriteria": [
+        "Each listed route renders distinct content sections described in the prompt (hero, process, testimonials, FAQ, footer/contact as applicable).",
+        "Each route sets unique title + description + OG tags (at minimum og:title, og:description, og:type).",
+        "All pages are responsive and keyboard navigable."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Set up client-side routing for marketing routes (/, /about, /employers, /candidates, /success-stories, /faq, /contact) and wire in shared layout/navigation; ensure routes are keyboard navigable and responsive. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/lib/seo.ts",
+          "operation": "create",
+          "description": "Implement a small SEO helper (hook or utility) to set document title and update meta description + OG tags per route within the client-routed React app constraints. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/marketing/HomePage.tsx",
+          "operation": "create",
+          "description": "Create the Home route page component and wire unique SEO metadata through the SEO helper. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/marketing/AboutPage.tsx",
+          "operation": "create",
+          "description": "Create the About route page component with distinct content sections and per-route metadata. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/marketing/EmployersPage.tsx",
+          "operation": "create",
+          "description": "Create the Employers route page component with distinct content sections and per-route metadata. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/marketing/CandidatesPage.tsx",
+          "operation": "create",
+          "description": "Create the Candidates route page component with distinct content sections and per-route metadata. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/marketing/SuccessStoriesPage.tsx",
+          "operation": "create",
+          "description": "Create the Success Stories route page component with testimonials content and per-route metadata. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/marketing/FaqPage.tsx",
+          "operation": "create",
+          "description": "Create the FAQ route page component using the reusable accordion and per-route metadata. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/marketing/ContactPage.tsx",
+          "operation": "create",
+          "description": "Create the Contact route page component with contact form/CTA and per-route metadata. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/main.tsx",
+          "operation": "modify",
+          "description": "Wrap the application with the router provider required by the chosen client-side routing approach, preserving React Query and InternetIdentityProvider composition."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Build the Home page sections in order, including hero with one purple-highlight word, glass CTAs, UK map centerpiece, process timeline, testimonials, FAQ, and footer.",
+      "acceptanceCriteria": [
+        "Home page includes all named sections in the specified order with working phase tabs and accordion interactions.",
+        "The two hero CTA cards are visually distinct glass cards and link to the appropriate routes (candidates/employers or equivalent).",
+        "Footer contains contact info and navigation links."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/marketing/HomePage.tsx",
+          "operation": "modify",
+          "description": "Implement the specified Home page section order: dark premium hero with exactly one purple-highlight word, two glass CTA cards (“Job Seekers” -> /candidates, “Staff Seekers” -> /employers), centered UK map hero (REQ-6), “Why Work With HOSPO?”, “Our Recruitment Process” (phase tabs + step cards), “Most Recent Top Marks” testimonials, FAQ accordion, and footer contact/links. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/layout/Footer.tsx",
+          "operation": "create",
+          "description": "Create a reusable footer with contact info and navigation links; apply neutral-forward styling with restrained purple only where allowed. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/marketing/HeroSection.tsx",
+          "operation": "create",
+          "description": "Create a hero section component that enforces the “exactly one purple-highlight word” rule (e.g., via an explicit emphasizedWord prop) and uses the PrimaryPillButton + GlassCard components. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Implement the UK Map Hero as a lightweight SVG-based animation (single-path silhouette + nodes/lines + shimmer sweep).",
+      "acceptanceCriteria": [
+        "UK silhouette is a single SVG path and renders crisply at multiple viewport sizes.",
+        "Pulse, shimmer, and node twinkle animations run smoothly and do not trigger large layout shifts.",
+        "Animation implementation uses only SVG/CSS (no heavy canvas/WebGL)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/marketing/UkMapHero.tsx",
+          "operation": "create",
+          "description": "Implement an SVG-only UK map hero that uses the generated asset at frontend/public/assets/generated/uk-silhouette.dim_1200x800.svg as the single-path silhouette; overlay nodes (circles) and connecting lines with subtle glow, add a shimmer sweep, slow pulse (2.5–4s), and subtle randomized node twinkle using SVG/CSS only. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/marketing/HomePage.tsx",
+          "operation": "modify",
+          "description": "Wire the UkMapHero component into the Home hero area as the centered UK map centerpiece and ensure responsiveness across viewport sizes. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Create public Jobs pages that read real backend data, support filtering, show job detail by slug, and provide Apply CTA with auth/role checks and schema readiness.",
+      "acceptanceCriteria": [
+        "/jobs fetches published jobs from the Motoko backend and filter UI updates results without page reload.",
+        "/jobs/:slug fetches by slug and shows not-found state if missing/unpublished.",
+        "Apply CTA creates an application record for the authenticated candidate (with clear error messages if not logged in or wrong role)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/jobs/JobsListPage.tsx",
+          "operation": "create",
+          "description": "Implement /jobs page with filter UI (location, type, salary range, keyword) that updates results without reload; render listing cards (title, location, type, salary, “View job”) using React Query data and reusable skeleton/empty states. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/jobs/JobDetailPage.tsx",
+          "operation": "create",
+          "description": "Implement /jobs/:slug detail view fetching by slug via React Query; show not-found state when missing/unpublished; include Apply CTA and a JobPosting structured-data block (or schema-ready placeholder) wired to real job fields. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/queries/jobs.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for listing filtered jobs and fetching job by slug using the generated backend actor methods from frontend/src/backend.d.ts, with consistent error handling. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/jobs/JobCard.tsx",
+          "operation": "create",
+          "description": "Create reusable job listing card component that displays title/location/type/salary and a “View job” navigation control with accessible focus styles. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/jobs/JobFilters.tsx",
+          "operation": "create",
+          "description": "Create a reusable filters component (location, type, salary range, keyword) that drives React Query refetching via controlled state and debounced keyword input. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register /jobs and /jobs/:slug routes and wire them into navigation (navbar) without creating orphan pages. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Implement Internet Identity authentication UI, create user profile on first login (with app role), and add role-based route guarding for dashboards.",
+      "acceptanceCriteria": [
+        "Users can sign in and sign out via Internet Identity.",
+        "On first authenticated session, a profile record is created if missing and persists across refreshes.",
+        "Protected dashboard routes are inaccessible when unauthenticated and are restricted based on role."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/auth/AuthButton.tsx",
+          "operation": "create",
+          "description": "Create a login/logout button using the existing Internet Identity hook; on logout, clear React Query caches and return to public routes. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/queries/auth.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for getCallerUserProfile/saveCallerUserProfile and getCallerUserRole, following the selected authorization component guidance to avoid profile-setup modal flash. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/ProfileSetupModal.tsx",
+          "operation": "create",
+          "description": "Create a first-login profile setup modal that collects name/email and lets the user choose app role (candidate/employer/admin placeholder if appropriate) with default candidate; save via backend saveCallerUserProfile and close persistently once saved. Use the selected authorization component’s frontend guidance; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/RequireAuth.tsx",
+          "operation": "create",
+          "description": "Create a route guard that blocks dashboard routes when unauthenticated (showing an access denied screen or redirect), and integrates with React Query loading/skeleton states. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/RequireAppRole.tsx",
+          "operation": "create",
+          "description": "Create a role-based guard that restricts dashboard subtrees by app role (candidate/employer/admin) and performs redirects from /dashboard accordingly. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/layout/StickyNavbar.tsx",
+          "operation": "modify",
+          "description": "Wire AuthButton into the navbar and ensure the active nav state uses the restrained purple emphasis per REQ-1. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire profile bootstrap (ProfileSetupModal) at app level after successful authentication and add guarded dashboard route tree entries. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Build protected role-based dashboard routes/pages (candidate, employer, settings, admin placeholder) with real data integration and redirects from /dashboard.",
+      "acceptanceCriteria": [
+        "/dashboard redirects to the correct sub-dashboard based on the user role.",
+        "Candidate pages allow profile editing, CV upload, and application status viewing based on real backend data.",
+        "Employer pages allow company profile editing, job CRUD, and application status updates based on real backend data.",
+        "Settings page persists toggles per user.",
+        "Admin route exists and is protected for admin role, with placeholder content for metrics/moderation."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/dashboard/DashboardIndexPage.tsx",
+          "operation": "create",
+          "description": "Implement /dashboard as a role-based redirector using current user profile role (candidate/employer/admin) and guards; show a skeleton while role/profile is loading. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/dashboard/candidate/CandidateDashboardPage.tsx",
+          "operation": "create",
+          "description": "Implement /dashboard/candidate overview page with links to profile and applications, using guarded access and consistent layout. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/dashboard/candidate/CandidateProfilePage.tsx",
+          "operation": "create",
+          "description": "Implement /dashboard/candidate/profile with editable candidate profile fields and CV upload; for CV upload, use the selected blob-storage component (ExternalBlob) on the frontend to upload and store a reference in the candidate profile, with progress + validation/error states. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/dashboard/candidate/CandidateApplicationsPage.tsx",
+          "operation": "create",
+          "description": "Implement /dashboard/candidate/applications listing using real backend data via React Query; show loading skeletons, empty state, and clear status display. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/dashboard/employer/EmployerDashboardPage.tsx",
+          "operation": "create",
+          "description": "Implement /dashboard/employer overview page with links to company, jobs, and applications. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/dashboard/employer/EmployerCompanyPage.tsx",
+          "operation": "create",
+          "description": "Implement /dashboard/employer/company for editing employer profile fields with validation and saving via React Query mutation. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/dashboard/employer/EmployerJobsPage.tsx",
+          "operation": "create",
+          "description": "Implement /dashboard/employer/jobs list view for employer’s jobs with empty/skeleton/error states; provide navigation to create/edit routes. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/dashboard/employer/EmployerJobNewPage.tsx",
+          "operation": "create",
+          "description": "Implement /dashboard/employer/jobs/new for creating a job (draft/published controls as allowed) with validation and mutation; show saving state and errors. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/dashboard/employer/EmployerJobEditPage.tsx",
+          "operation": "create",
+          "description": "Implement /dashboard/employer/jobs/:id/edit for editing a job by id with load/skeleton/error states and mutation. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/dashboard/employer/EmployerApplicationsPage.tsx",
+          "operation": "create",
+          "description": "Implement /dashboard/employer/applications to view applications for the employer’s jobs and update application statuses using real backend calls with optimistic UI where safe and clear error messaging. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/dashboard/SettingsPage.tsx",
+          "operation": "create",
+          "description": "Implement /dashboard/settings with user-specific toggle(s) persisted via backend settings calls; include loading, saving, and error states. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/dashboard/AdminPage.tsx",
+          "operation": "create",
+          "description": "Implement /dashboard/admin as an admin-only protected placeholder page (metrics/moderation placeholder content). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/queries/profile.ts",
+          "operation": "create",
+          "description": "Add React Query hooks/mutations for candidate profile and employer profile fetching/saving using backend actor methods; centralize consistent error messaging. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/queries/applications.ts",
+          "operation": "create",
+          "description": "Add React Query hooks/mutations for candidate applications, job applications, applyForJob, and updateApplicationStatus with standardized skeleton/empty/error handling. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/queries/settings.ts",
+          "operation": "create",
+          "description": "Add React Query hooks/mutations for settings persistence per user, including cache invalidation patterns. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register all dashboard routes listed in the requirement, apply RequireAuth + RequireAppRole guards, and wire navigation links to avoid orphan routes. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "summary": "Integrate all backend calls via React Query with caching, skeleton loading, empty states, and user-friendly error handling; remove dummy data paths.",
+      "acceptanceCriteria": [
+        "All data-driven pages use React Query with caching and show skeletons during loading.",
+        "Empty states appear for no jobs, no applications, etc., with clear user messaging.",
+        "Network/backend errors surface as user-friendly alerts/toasts and do not crash the app."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/lib/errors.ts",
+          "operation": "create",
+          "description": "Implement shared error normalization for backend/agent errors (including authorization traps) into user-friendly messages suitable for banners/toasts. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/states/InlineAlert.tsx",
+          "operation": "create",
+          "description": "Create a standardized alert component for page-level errors and warnings (neutral styling, accessible semantics). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/jobs/JobsListPage.tsx",
+          "operation": "modify",
+          "description": "Ensure jobs list uses React Query hooks (no dummy data), shows LoadingSkeleton while loading, EmptyState when no results, and InlineAlert on errors. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/jobs/JobDetailPage.tsx",
+          "operation": "modify",
+          "description": "Ensure job detail uses React Query hooks (no dummy data), shows skeleton while loading, not-found state when missing, and InlineAlert for errors; Apply CTA uses mutation with clear auth/role error messaging. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/dashboard/candidate/CandidateApplicationsPage.tsx",
+          "operation": "modify",
+          "description": "Ensure candidate applications uses React Query with skeletons/empty states and robust error handling; no placeholder flows. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/dashboard/employer/EmployerJobsPage.tsx",
+          "operation": "modify",
+          "description": "Ensure employer jobs list uses React Query with skeletons/empty states/error handling; no placeholder flows. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "summary": "Add performance and accessibility refinements: modern image formats, lazy-loading, SVG-only animations, and full keyboard/focus-visible support.",
+      "acceptanceCriteria": [
+        "All interactive components are operable by keyboard and visibly indicate focus.",
+        "Non-critical images/media are lazy-loaded; image assets use modern formats when applicable.",
+        "Map hero animation remains lightweight and does not degrade scroll/interaction performance."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Harden global focus-visible styles for links/buttons/tabs/accordion triggers/inputs and ensure consistent outlines/rings using tokenized colors; include reduced-motion safeguards for animations where applicable."
+        },
+        {
+          "path": "frontend/src/components/ui-kit/ProcessTimeline.tsx",
+          "operation": "modify",
+          "description": "Ensure Phase tabs are fully keyboard accessible (roving focus or appropriate semantics) and focus-visible styling is present; keep animations minimal. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/ui-kit/FaqAccordion.tsx",
+          "operation": "modify",
+          "description": "Ensure accordion supports keyboard navigation and focus-visible styling, and that motion is subtle and respects reduced-motion. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/marketing/UkMapHero.tsx",
+          "operation": "modify",
+          "description": "Verify shimmer/pulse/twinkle are SVG/CSS-only, lightweight (no layout shifts), slow (2.5–4s pulse), and respectful of reduced-motion preferences. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/marketing/HomePage.tsx",
+          "operation": "modify",
+          "description": "Ensure any non-critical media on Home is lazy-loaded and that any raster images (if introduced) prefer WebP/AVIF; confirm keyboard navigation through hero CTAs, tabs, accordion, and footer links. Verify the component's usage instructions before implementing."
+        }
+      ]
+    }
+  ]
+}

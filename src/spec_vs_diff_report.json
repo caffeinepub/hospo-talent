@@ -1,0 +1,90 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-12T01:53:44.667Z",
+  "summary": "Diff adds a TanStack Router multi-route React app with Internet Identity auth hook usage, React Query data hooks, brand CSS tokens/typography, and a Motoko backend skeleton with role types and job/application-related models. However, several BuildRequest items are either not evidenced in the diff (likely in omitted files) or show signs of placeholder/dummy wiring (notably in candidate/employer profile queries). Also includes a secret-token-based access-control initialization that was not requested.",
+  "missing_requirements": [
+    {
+      "id": "REQ-6",
+      "requirement": "Provide the required UK silhouette SVG asset (uk-silhouette.dim_1200x800.svg) and implement the UK Map Hero SVG silhouette + nodes/lines/shimmer animations.",
+      "reason": "The required SVG asset file is not present in the added file list, and no UK map hero SVG implementation is evidenced in the shown files.",
+      "evidence": [
+        "Added files list does not include uk-silhouette.dim_1200x800.svg"
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "requirement": "Ensure no “dummy/placeholder” data paths remain for backend-driven flows (profiles, jobs, applications, settings) and that frontend calls match real backend APIs.",
+      "reason": "The React Query hooks for candidate/employer profile retrieval explicitly use a placeholder approach (passing email 'as any' while commenting that backend uses caller), indicating non-final integration and likely mismatched API usage.",
+      "evidence": [
+        "frontend/src/hooks/useQueries.ts (\"return actor.getCandidateProfile(identity.email as any); // Using email as placeholder, backend uses caller\")",
+        "frontend/src/hooks/useQueries.ts (\"return actor.getEmployerProfile(identity.email as any);\")"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Secret-token-based access-control initialization via URL parameter (caffeineAdminToken) and calling a backend method _initializeAccessControlWithSecret.",
+      "reason": "BuildRequest requires Internet Identity auth and role-based authorization, but does not request any secret token URL parameter mechanism or hidden initialization method.",
+      "evidence": [
+        "frontend/src/hooks/useActor.ts (reads getSecretParameter('caffeineAdminToken') and calls actor._initializeAccessControlWithSecret(adminToken))"
+      ]
+    },
+    {
+      "description": "Caffeine.ai marketing/referral link in the footer.",
+      "reason": "BuildRequest specifies footer content (contact info + navigation links) but does not request third-party referral/attribution links.",
+      "evidence": [
+        "frontend/src/components/layout/Footer.tsx (link to https://caffeine.ai/?utm_source=Caffeine-footer...)"
+      ]
+    }
+  ],
+  "confidence": 0.62,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/auth/ProfileSetupModal.tsx",
+    "frontend/src/components/auth/RequireAppRole.tsx",
+    "frontend/src/components/auth/RequireAuth.tsx",
+    "frontend/src/components/layout/Footer.tsx",
+    "frontend/src/components/layout/StickyNavbar.tsx",
+    "frontend/src/components/states/EmptyState.tsx",
+    "frontend/src/components/states/InlineAlert.tsx",
+    "frontend/src/components/states/LoadingSkeleton.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/lib/errors.ts",
+    "frontend/src/lib/seo.ts",
+    "frontend/src/lib/utils.ts",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/dashboard/AdminPage.tsx",
+    "frontend/src/pages/dashboard/DashboardIndexPage.tsx",
+    "frontend/src/pages/dashboard/SettingsPage.tsx",
+    "frontend/src/pages/dashboard/candidate/CandidateApplicationsPage.tsx",
+    "frontend/src/pages/dashboard/candidate/CandidateDashboardPage.tsx",
+    "frontend/src/pages/dashboard/candidate/CandidateProfilePage.tsx",
+    "frontend/src/pages/dashboard/employer/EmployerApplicationsPage.tsx",
+    "frontend/src/pages/dashboard/employer/EmployerCompanyPage.tsx",
+    "frontend/src/pages/dashboard/employer/EmployerDashboardPage.tsx",
+    "frontend/src/pages/dashboard/employer/EmployerJobEditPage.tsx",
+    "frontend/src/pages/dashboard/employer/EmployerJobNewPage.tsx",
+    "frontend/src/pages/dashboard/employer/EmployerJobsPage.tsx",
+    "frontend/src/pages/jobs/JobDetailPage.tsx",
+    "frontend/src/pages/jobs/JobsListPage.tsx",
+    "frontend/src/pages/marketing/AboutPage.tsx",
+    "frontend/src/pages/marketing/CandidatesPage.tsx",
+    "frontend/src/pages/marketing/ContactPage.tsx",
+    "frontend/src/pages/marketing/EmployersPage.tsx",
+    "frontend/src/pages/marketing/FaqPage.tsx",
+    "frontend/src/pages/marketing/HomePage.tsx",
+    "frontend/src/pages/marketing/SuccessStoriesPage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

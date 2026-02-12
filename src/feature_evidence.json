@@ -1,0 +1,263 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-implement-a-strict-brand-token-system-using-css-variables-primary-purple-6b3fa0-light-lavender-d2b3f8-soft-accent-d0b5f0-pastel-highlight-eebdff-neutrals-ink-900-ink-600-surface-0-surface-50-border-100-and-apply-it-consistently-across-all-pages-and-components-with-the-rule-that-purple-is-used-only-for-emphasis-one-word-in-headings-primary-cta-active-nav-state",
+      "featureTitle": "Implement a strict brand-token system using CSS variables (Primary purple #6B3FA0, Light lavender #d2b3f8, Soft accent #d0b5f0, Pastel highlight #eebdff; neutrals ink-900/ink-600/surface-0/surface-50/border-100) and apply it consistently across all pages and components with the rule that purple is used only for emphasis (one word in headings, primary CTA, active nav state).",
+      "files": [
+        "frontend/index.html",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-reusable-frontend-component-system-composed-from-existing-ui-components-without-editing-immutable-paths-including-sticky-navbar-dark-background-logo-left-menu-center-get-started-pill-right-active-link-underline-text-primary-pill-cta-button-lavender-fill-hover-glow-focus-state-glass-hero-cards-backdrop-blur-1px-border-with-white-opacity-feature-cards-with-minimal-icons-process-timeline-with-phase-1-2-3-tabs-step-cards-testimonials-3-card-grid-with-star-rating-faq-accordion-form-inputs-with-validation-error-states-and-standardized-empty-states-loading-skeletons",
+      "featureTitle": "Create a reusable frontend component system (composed from existing UI components without editing immutable paths) including: sticky navbar (dark background, logo left, menu center, “Get Started” pill right; active link underline/text), primary pill CTA button (lavender fill, hover glow, focus state), glass hero cards (backdrop blur, 1px border with white opacity), feature cards with minimal icons, process timeline with Phase 1/2/3 tabs + step cards, testimonials 3-card grid with star rating, FAQ accordion, form inputs with validation + error states, and standardized empty states + loading skeletons.",
+      "files": [
+        "frontend/src/components/layout/StickyNavbar.tsx",
+        "frontend/src/components/states/EmptyState.tsx",
+        "frontend/src/components/states/LoadingSkeleton.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-coherent-premium-visual-theme-for-hospo-talent-typography-spacing-rhythm-card-style-shadows-consistent-with-the-brand-tokens-and-typography-requirements-modern-sans-for-headings-inter-or-equivalent-for-body-heading-weights-700-900-body-400-500-and-apply-it-across-all-pages",
+      "featureTitle": "Implement a coherent, premium visual theme for HOSPO TALENT (typography, spacing rhythm, card style, shadows) consistent with the brand tokens and typography requirements (modern sans for headings; Inter or equivalent for body; heading weights 700–900; body 400–500) and apply it across all pages.",
+      "files": [
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-the-public-marketing-routes-as-a-multi-page-react-app-client-side-routing-with-seo-friendly-metadata-document-title-meta-description-og-tags-per-route-and-fully-responsive-layouts-for-home-about-employers-candidates-success-stories-faq-contact",
+      "featureTitle": "Build the public marketing routes as a multi-page React app (client-side routing) with SEO-friendly metadata (document title + meta description + OG tags per route) and fully responsive layouts for: / (Home), /about, /employers, /candidates, /success-stories, /faq, /contact.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/lib/seo.ts",
+        "frontend/src/main.tsx",
+        "frontend/src/pages/marketing/AboutPage.tsx",
+        "frontend/src/pages/marketing/CandidatesPage.tsx",
+        "frontend/src/pages/marketing/ContactPage.tsx",
+        "frontend/src/pages/marketing/EmployersPage.tsx",
+        "frontend/src/pages/marketing/FaqPage.tsx",
+        "frontend/src/pages/marketing/HomePage.tsx",
+        "frontend/src/pages/marketing/SuccessStoriesPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-the-home-page-layout-and-sections-dark-premium-hero-with-a-headline-containing-exactly-one-purple-highlight-word-two-glass-cta-cards-job-seekers-and-staff-seekers-a-centered-uk-map-hero-per-req-6-sections-for-why-work-with-hospo-our-recruitment-process-phase-tabs-step-cards-most-recent-top-marks-testimonials-faq-accordion-and-footer-with-contact-links",
+      "featureTitle": "Implement the Home page layout and sections: dark premium hero with a headline containing exactly one purple-highlight word; two glass CTA cards (“Job Seekers” and “Staff Seekers”); a centered UK map hero (per REQ-6); sections for “Why Work With HOSPO?”, “Our Recruitment Process” (phase tabs + step cards), “Most Recent Top Marks” testimonials, FAQ accordion, and footer with contact + links.",
+      "files": [
+        "frontend/src/components/layout/Footer.tsx",
+        "frontend/src/pages/marketing/HomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-the-uk-map-hero-as-an-svg-silhouette-of-the-uk-single-path-with-overlaid-network-nodes-circles-connecting-lines-thin-glow-and-a-subtle-shimmer-sweep-animations-must-be-lightweight-svg-only-with-slow-pulse-2-5-4s-and-subtle-randomized-node-twinkle-without-heavy-motion",
+      "featureTitle": "Implement the UK Map Hero as an SVG silhouette of the UK (single path) with overlaid network nodes (circles), connecting lines (thin glow), and a subtle shimmer sweep; animations must be lightweight (SVG only) with slow pulse (2.5–4s) and subtle randomized node twinkle without heavy motion.",
+      "files": [
+        "frontend/src/pages/marketing/HomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-public-jobs-pages-with-real-backend-data-no-dummy-flows-jobs-supports-filters-location-type-salary-range-keyword-and-displays-listing-cards-title-location-type-salary-view-job-jobs-slug-renders-a-job-detail-view-with-apply-cta-and-includes-jobposting-schema-readiness-structured-data-block-or-equivalent-placeholder-wired-to-real-job-fields",
+      "featureTitle": "Build public Jobs pages with real backend data (no dummy flows): /jobs supports filters (location, type, salary range, keyword) and displays listing cards (title, location, type, salary, “View job”); /jobs/:slug renders a job detail view with Apply CTA and includes JobPosting schema readiness (structured data block or equivalent placeholder wired to real job fields).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/jobs/JobDetailPage.tsx",
+        "frontend/src/pages/jobs/JobsListPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-authentication-using-internet-identity-ii-and-create-an-app-level-user-profile-on-first-login-including-a-role-field-with-allowed-values-candidate-employer-admin-default-candidate-provide-login-logout-and-role-based-route-guarding-for-dashboard-routes",
+      "featureTitle": "Implement authentication using Internet Identity (II) and create an app-level user profile on first login, including a role field with allowed values: candidate, employer, admin (default candidate). Provide login, logout, and role-based route guarding for dashboard routes.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/ProfileSetupModal.tsx",
+        "frontend/src/components/auth/RequireAppRole.tsx",
+        "frontend/src/components/auth/RequireAuth.tsx",
+        "frontend/src/components/layout/StickyNavbar.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-protected-dashboard-routes-and-pages-with-role-based-redirects-from-dashboard-and-placeholders-where-needed-candidate-dashboard-candidate-dashboard-candidate-profile-with-cv-upload-dashboard-candidate-applications-employer-dashboard-employer-dashboard-employer-company-dashboard-employer-jobs-dashboard-employer-jobs-new-dashboard-employer-jobs-id-edit-dashboard-employer-applications-with-status-updates-settings-dashboard-settings-admin-placeholder-dashboard-admin",
+      "featureTitle": "Implement protected dashboard routes and pages with role-based redirects from /dashboard and placeholders where needed: Candidate (/dashboard/candidate, /dashboard/candidate/profile with CV upload, /dashboard/candidate/applications); Employer (/dashboard/employer, /dashboard/employer/company, /dashboard/employer/jobs, /dashboard/employer/jobs/new, /dashboard/employer/jobs/:id/edit, /dashboard/employer/applications with status updates); Settings (/dashboard/settings); Admin placeholder (/dashboard/admin).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/dashboard/AdminPage.tsx",
+        "frontend/src/pages/dashboard/DashboardIndexPage.tsx",
+        "frontend/src/pages/dashboard/SettingsPage.tsx",
+        "frontend/src/pages/dashboard/candidate/CandidateApplicationsPage.tsx",
+        "frontend/src/pages/dashboard/candidate/CandidateDashboardPage.tsx",
+        "frontend/src/pages/dashboard/candidate/CandidateProfilePage.tsx",
+        "frontend/src/pages/dashboard/employer/EmployerApplicationsPage.tsx",
+        "frontend/src/pages/dashboard/employer/EmployerCompanyPage.tsx",
+        "frontend/src/pages/dashboard/employer/EmployerDashboardPage.tsx",
+        "frontend/src/pages/dashboard/employer/EmployerJobEditPage.tsx",
+        "frontend/src/pages/dashboard/employer/EmployerJobNewPage.tsx",
+        "frontend/src/pages/dashboard/employer/EmployerJobsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-frontend-data-integration-using-react-query-for-all-backend-calls-jobs-listing-detail-profile-job-crud-applications-settings-including-loading-skeletons-empty-states-and-error-handling-ensure-no-dummy-data-paths-remain-for-these-flows",
+      "featureTitle": "Implement frontend data integration using React Query for all backend calls (jobs listing/detail, profile, job CRUD, applications, settings) including loading skeletons, empty states, and error handling; ensure no “dummy” data paths remain for these flows.",
+      "files": [
+        "frontend/src/components/states/InlineAlert.tsx",
+        "frontend/src/lib/errors.ts",
+        "frontend/src/pages/dashboard/candidate/CandidateApplicationsPage.tsx",
+        "frontend/src/pages/dashboard/employer/EmployerJobsPage.tsx",
+        "frontend/src/pages/jobs/JobDetailPage.tsx",
+        "frontend/src/pages/jobs/JobsListPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-12"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-performance-and-accessibility-refinements-use-webp-avif-where-images-are-used-lazy-load-non-critical-media-keep-animations-svg-only-and-ensure-keyboard-navigation-focus-visible-styling-across-navbar-accordions-tabs-forms-and-buttons",
+      "featureTitle": "Add performance and accessibility refinements: use WebP/AVIF where images are used, lazy-load non-critical media, keep animations SVG-only, and ensure keyboard navigation + focus-visible styling across navbar, accordions, tabs, forms, and buttons.",
+      "files": [
+        "frontend/src/index.css",
+        "frontend/src/pages/marketing/HomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-13"
+      ],
+      "confidence": "high"
+    }
+  ]
+}
